@@ -3,7 +3,8 @@
 const utils = require("../../utils.js");
 const g_constants = require("../../constants.js");
 
-const mailer = require("../mailer.js");
+//const mailer = require("../mailer.js");
+const mail_gun = require('../mail-gun.js');
 
 let emailChecker = {};
 
@@ -51,12 +52,17 @@ exports.onSubmit = function(req, res)
         setTimeout((key) => {if (key && emailChecker[key]) delete emailChecker[key];}, 3600*1000, strCheck);
         
         const urlCheck = "https://"+req.headers.host+"/checkmail/"+strCheck;
-        mailer.SendSignupConfirmation(req.body['email'], "https://"+req.headers.host, urlCheck, ret => {
+        /*mailer.SendSignupConfirmation(req.body['email'], "https://"+req.headers.host, urlCheck, ret => {
             if (ret.error)
                 return SignupError(req, res, ret.message);
 
             SignupSuccess(req, res, {});
-        });
+        });*/
+
+
+        //mail gun
+
+        mail_gun.SendMgSignupConfirmation(req.body['email'], "https://"+req.headers.host, urlCheck);
     }
 }
 

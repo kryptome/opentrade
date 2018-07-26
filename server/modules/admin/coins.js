@@ -7,7 +7,7 @@ const RPC = require("../rpc.js");
 const WebSocket = require('ws');
 const admin_utils = require('./utils.js');
 const apiV1 = require("../api/v1.js");
-const mailer = require("../mailer");
+const mail_gun = require('../mail-gun.js');
 
 exports.onTestRPC = function(ws, req, data)
 {
@@ -107,12 +107,15 @@ exports.onSupport = function(ws, req, data)
         if (action == 'disable_all')
         {
             g_constants.share.tradeEnabled = false;
-            mailer.SendAdminNotify('UserID='+coin.userID+' has disabled trading');
+            //mail-gun
+            mail_gun.SendMgAdminNotify('UserID='+coin.userID+' has disabled trading')
         }
         if (action == 'enable_all')
         {
             g_constants.share.tradeEnabled = true;
-            mailer.SendAdminNotify('UserID='+coin.userID+' has enabled trading');
+
+            //mail-gun
+            mail_gun.SendMgAdminNotify('UserID='+coin.userID+' has enabled trading')
         }
             
         g_constants.dbTables['coins'].update('info="'+escape(utils.Encrypt(JSON.stringify(coin.info) || '{}'))+'"', 'ROWID='+coin.id, err => {

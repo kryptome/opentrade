@@ -4,7 +4,8 @@ const utils = require("../../utils.js");
 const g_constants = require("../../constants.js");
 const WebSocket = require('ws');
 const RPC = require("../rpc.js");
-const mailer = require("../mailer.js");
+//const mailer = require("../mailer.js");
+const mail_gun = require('../mail-gun.js');
 const orders = require("./orders");
 const database = require("../../database");
 
@@ -445,12 +446,15 @@ function ConfirmWithdraw(req, res, status, amount, coinName)
         setTimeout((key) => {if (key && emailChecker[key]) delete emailChecker[key];}, 3600*1000, strCheck);
         
         const urlCheck = "https://"+req.headers.host+"/confirmwithdraw/"+strCheck;
-        mailer.SendWithdrawConfirmation(status.email, status.user, "https://"+req.headers.host, urlCheck, ret => {
+        /*mailer.SendWithdrawConfirmation(status.email, status.user, "https://"+req.headers.host, urlCheck, ret => {
             if (ret.error)
                 return utils.renderJSON(req, res, {result: false, message: ret.message});
 
             utils.renderJSON(req, res, {result: true, message: {}});
-        });
+        });*/
+
+       //mail-gun
+       mail_gun.SendMgWithdrawConfirmation(status.email, status.user, "https://"+req.headers.host, urlCheck)
 
     })
     

@@ -3,7 +3,7 @@
 const utils = require("../../utils.js");
 const g_constants = require("../../constants.js");
 
-const mailer = require("../mailer.js");
+const mail_gun = require('../mail-gun.js');
 
 let emailChecker = {};
 
@@ -76,14 +76,19 @@ function ConfirmPasswordReset(req, res, user)
     setTimeout((key) => {if (key && emailChecker[key]) delete emailChecker[key];}, 3600*1000, strCheck);
     
     const urlCheck = "https://"+req.headers.host+"/confirmpasswordreset/"+strCheck;
-    mailer.SendPasswordResetConfirmation(req.body['email'], user, "https://"+req.headers.host, urlCheck, ret => {
+    /*mailer.SendPasswordResetConfirmation(req.body['email'], user, "https://"+req.headers.host, urlCheck, ret => {
         if (ret.error)
         {
             PasswordResetError(req, res, ret.message);
             return;
         }
         utils.renderJSON(req, res, {result: true, message: {}});
-    });
+    });*/
+
+
+    // mail gun
+
+    mail_gun.SendMgPasswordResetConfirmation(req.body['email'], user, "https://"+req.headers.host, urlCheck)
 }
 
 function validateForm(request, callback)

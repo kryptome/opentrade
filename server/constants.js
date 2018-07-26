@@ -3,6 +3,13 @@
 const SUPPORT_EMAIL = 'support@email.com';
 const NOREPLY_EMAIL = 'no-reply@email.com';
 
+// mail-gun
+
+exports.emailConfig = {
+    apiKey: 'mailgunapikey',
+    domain: 'mg.example.com'
+  };
+
 const MAILER_NAME = 'OpenTrade Mailer';
 const START_MESSAGE = 'OpenTrade started!';
 
