@@ -19,7 +19,7 @@ exports.DEBUG_LOG = false;
 
 exports.share = {
    tradeEnabled: false,
-   recaptchaEnabled: true,
+   recaptchaEnabled: true, 
    
    my_portSSL: 40443,
    
