@@ -14,7 +14,7 @@
     "connect-flash": "^0.1.1",
     "cors": "latest",
     "debug": "latest",
-    "ejs": "latest",
+    "ejs": "3.1.6",
     "express": "latest",
     "express-session": "^1.15.6",
     "express-validator": "^5.2.0",
