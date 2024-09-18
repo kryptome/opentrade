@@ -15,7 +15,7 @@
     "cors": "latest",
     "debug": "latest",
     "ejs": "latest",
-    "express": "latest",
+    "express": "4.20.0",
     "express-session": "^1.15.6",
     "express-validator": "^5.2.0",
     "mailgun-js": "^0.18.0",
